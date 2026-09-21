@@ -1,0 +1,23 @@
+# simulation output and restarts
+output/
+*.nc
+checkpoint_*
+
+# Julia
+Manifest.toml
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/.julia/
+deps/deps.jl
+
+# editor / OS
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# logs and PBS job files
+logs/
+*.o[0-9]*
+*.e[0-9]*
