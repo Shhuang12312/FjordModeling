@@ -72,13 +72,31 @@ real cast), the plume source geometry and strength, the tide and pulsing amplitu
 sponge, the virtual mooring location, output cadence, and numerics. Each field is commented
 with its units.
 
-## Bathymetry
+## Real-world data sources
 
-`bottom.nc` holds a 2-D bottom-elevation array under the variable named by
-`bathymetry_var` (default `bottom`). It does not need to match the model grid: if the shapes
-differ it is linearly resampled onto the grid. `make_bathymetry.jl` writes an idealized
-U-shaped channel with a sill; replace it with a real fjord's bathymetry to model a specific
-site.
+The model ships with idealized stand-ins so it runs immediately, and each one is designed to
+be swapped for observational or reanalysis data:
+
+- **Bathymetry — GEBCO.** `bottom.nc` holds a 2-D bottom-elevation array under the variable
+  named by `bathymetry_var`. Download the GEBCO gridded bathymetry for the fjord, subset and
+  orient it so the glacier is at `y = 0` and the mouth at `y = Ly`, and point `bathymetry_file`
+  / `bathymetry_var` at it (GEBCO's depth variable is usually `elevation`, in metres and
+  negative below sea level, which is the convention the model expects). It need not match the
+  model grid; it is linearly resampled. `make_bathymetry.jl` writes an idealized U-shaped
+  channel with a sill as a placeholder.
+
+- **Ambient temperature and salinity — ASTE.** The background stratification is an analytic
+  surface-to-deep transition set by six parameters in `FjordConfig` (`T_surface`, `T_deep`,
+  `S_surface`, `S_deep`, `pycnocline_depth`, `pycnocline_scale`). Take a representative ASTE
+  profile near the fjord mouth and fit those six numbers to it. An analytic profile is used
+  (rather than reading the cast directly) because it is evaluated at every grid point and on
+  the GPU, where a closed-form function is required.
+
+- **Subglacial discharge — RACMO 2.3p2** ([Zenodo 19254871](https://zenodo.org/records/19254871)).
+  The discharge sets how strong the plume outflow is (`plume_speed`) and, through its seasonal
+  cycle, which period you are modelling: pick the RACMO runoff for that glacier and season and
+  scale `plume_speed` accordingly. The `:pump`/`:tidepump` scenarios then add the tidal
+  modulation on top via `pump_amplitude`.
 
 ## Outputs
 
