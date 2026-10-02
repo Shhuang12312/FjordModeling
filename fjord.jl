@@ -260,6 +260,7 @@ end
     return src - mouth_deep(y, z, p) / p.sponge_time * (S - ambient_S(z, p))
 end
 
+
 # -------------------------------------------------------------------------------------
 # 4. Grid and bathymetry
 # -------------------------------------------------------------------------------------
@@ -387,14 +388,23 @@ end
 # -------------------------------------------------------------------------------------
 # Start the fjord at rest, filled with the ambient stratification, plus a whisper of random
 # velocity. The noise breaks the perfect symmetry so realistic turbulence can develop.
+
+# NOISE RE-ADDED
 function set_initial_condition!(model, config, p)
     u, v, w = model.velocities
-    noise() = 5e-3 .* (rand(size(u)...) .- 0.5)     # tiny random velocities, +/-2.5 mm/s
-    uᵢ, vᵢ, wᵢ = noise(), noise(), noise()
+    noise(field) = 5e-3 .* (rand(size(field)...) .- 0.5)     # tiny random velocities, +/-2.5 mm/s
+    uᵢ, vᵢ, wᵢ = noise(u), noise(v), noise(w)
     uᵢ .-= mean(uᵢ); vᵢ .-= mean(vᵢ); wᵢ .-= mean(wᵢ)   # remove any net drift
     set!(model, u = uᵢ, v = vᵢ, w = wᵢ,
          T = (x, y, z) -> ambient_T(z, p), S = (x, y, z) -> ambient_S(z, p))
 end
+
+# function set_initial_condition!(model, config, p)
+#     set!(model,
+#          u = 0.0, v = 0.0, w = 0.0,
+#          T = (x, y, z) -> ambient_T(z, p),
+#          S = (x, y, z) -> ambient_S(z, p))
+# end
 
 # Print a one-line status every so often so you can watch the run and catch blow-ups early.
 # A healthy run keeps the timestep and the maximum speeds steady; runaway numbers mean trouble.
