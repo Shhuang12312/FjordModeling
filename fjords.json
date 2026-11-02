@@ -1,0 +1,82 @@
+{
+  "_how_to_fill": [
+    "centerline: [lat, lon] points following the middle of the fjord, FIRST point at the mouth, LAST point at the glacier front. 3-10 points is plenty.",
+    "sill_km: distance of the sill crest along the centerline, measured from the first (mouth) point. Casts seaward of this are 'outside'.",
+    "H_gl: grounding-line depth at the glacier front [m]. H_sill: sill depth [m].",
+    "max_cross_km: how far a cast can be from the centerline and still count as inside the fjord (about half the fjord width).",
+    "shelf_km: how far seaward of the mouth to accept 'outside' casts; shelf_cross_km: their allowed distance from the centerline's extension.",
+    "Measure them with: python3 make_fjord_entry.py bottom_<fjord>_bedmachine.nc --write (BedMachine; it also saves Plots/<fjord>/fjord_entry_<fjord>.png to check them). shelf_km and shelf_cross_km are defaults to adjust by hand."
+  ],
+  "ilulissat": {
+    "_note": "Measured by make_fjord_entry.py from bottom_ilulissat_large_bedmachine.nc (BedMachine) on 2026-11-02: centerline = thalweg from the box's mouth row to the ice front, cut to 8 points; H_sill = shallowest depth on the deepest route out; sill_km = its crest along the centerline; H_gl = deepest water at the BedMachine ice front; max_cross_km ~ half the fjord width. shelf_km and shelf_cross_km are defaults.",
+    "centerline": [
+      [69.245, -51.8852],
+      [69.2562, -51.301],
+      [69.144, -50.983],
+      [69.1608, -50.3809],
+      [69.1871, -50.1272],
+      [69.1726, -49.9288],
+      [69.1886, -49.7253],
+      [69.1663, -49.657]
+    ],
+    "sill_km": 30.8,
+    "H_sill": 261,
+    "H_gl": 777,
+    "max_cross_km": 4.0,
+    "shelf_km": 40.0,
+    "shelf_cross_km": 30.0
+  },
+  "sermilik": {
+    "_note": "Measured by make_fjord_entry.py from bottom_sermilik_bedmachine.nc (BedMachine) on 2026-11-02: centerline = thalweg from the box's mouth row to the ice front, cut to 9 points; H_sill = shallowest depth on the deepest route out; sill_km = its crest along the centerline; H_gl = deepest water at the BedMachine ice front; max_cross_km ~ half the fjord width. shelf_km and shelf_cross_km are defaults.",
+    "centerline": [
+      [65.448, -37.7298],
+      [65.6258, -38.0441],
+      [65.8364, -37.9616],
+      [65.9453, -37.8467],
+      [66.0067, -37.881],
+      [66.0941, -37.7516],
+      [66.2681, -37.6338],
+      [66.3461, -37.9039],
+      [66.3536, -38.1494]
+    ],
+    "sill_km": 101.7,
+    "H_sill": 528,
+    "H_gl": 758,
+    "max_cross_km": 4.5,
+    "shelf_km": 40.0,
+    "shelf_cross_km": 30.0
+  },
+  "kangerdlugssuaq": {
+    "_note": "Measured by make_fjord_entry.py from bottom_kangerdlugssuaq_bedmachine.nc (BedMachine) on 2026-11-02: centerline = thalweg from the box's mouth row to the ice front, cut to 9 points; H_sill = shallowest depth on the deepest route out; sill_km = its crest along the centerline; H_gl = deepest water at the BedMachine ice front; max_cross_km ~ half the fjord width. shelf_km and shelf_cross_km are defaults.",
+    "centerline": [
+      [67.8452, -31.4176],
+      [67.8875, -31.7011],
+      [67.9341, -31.6539],
+      [67.9952, -31.7389],
+      [68.048, -31.7216],
+      [68.2033, -32.0511],
+      [68.3443, -32.1773],
+      [68.527, -32.5552],
+      [68.6033, -32.9112]
+    ],
+    "sill_km": 22.2,
+    "H_sill": 526,
+    "H_gl": 903,
+    "max_cross_km": 4.5,
+    "shelf_km": 40.0,
+    "shelf_cross_km": 30.0
+  },
+  "my_fjord": {
+    "_note": "Template: replace every value.",
+    "centerline": [
+      [0.0, 0.0],
+      [0.0, 0.0]
+    ],
+    "sill_km": 0.0,
+    "H_sill": 0.0,
+    "H_gl": 0.0,
+    "max_cross_km": 5.0,
+    "shelf_km": 40.0,
+    "shelf_cross_km": 30.0
+  }
+}
